@@ -2,4 +2,7 @@
 ## Kollaboraattorit voi kommentoida alle jos pääsee käsiksi projektiin GIT:n kautta:
 
 Onnistuu! - Jesper
-Toimii! - Olli
+
+Testi123 - Henri
+
+Jep - Olli

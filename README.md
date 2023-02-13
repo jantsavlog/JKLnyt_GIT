@@ -1,7 +1,10 @@
 # JKLNyt_GIT
-## Kollaboraattorit voi kommentoida alle jos pääsee käsiksi projektiin GIT:n kautta:
 
-JKLnyt Basic Feature List:
+Luodaan sovellus, jonka avulla loppukäyttäjä voi hakea ja keksiä itselleen (tai seurueelleen)
+tekemistä Jyväskylän alueella. Sovellus tarjoaa tietoa alueen aktiviteeteista ja tapahtumista, sekä
+voi ehdottaa erilaista tekemistä käyttäjälle.
+
+## JKLnyt Basic Feature List:
 
 - Kartta Jyväskylästä
 

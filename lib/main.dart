@@ -37,8 +37,34 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
+          AppBar(
+            leading: IconButton(
+              onPressed: () => false,
+              icon: Icon(Icons.menu),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blue,
+              width: MediaQuery.of(context).size.width,
+              child: const Text(
+                "Kartta",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.yellow,
+              width: MediaQuery.of(context).size.width,
+              child: const Text(
+                "Lista",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
         ],
       ),
     );

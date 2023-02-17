@@ -44,7 +44,6 @@ app.*.map.json
 /android/app/release
 
 # Ignore all files made with "flutter create ." : platforms, analysis_options.yaml
-android/
 ios/
 linux/
 macos/

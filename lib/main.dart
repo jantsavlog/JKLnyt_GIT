@@ -49,7 +49,7 @@ class MyHomePage extends StatelessWidget {
               color: Colors.blue,
               width: MediaQuery.of(context).size.width,
               child: const Text(
-                "Kartta",
+                "Oletettu kartta",
                 textAlign: TextAlign.center,
               ),
             ),

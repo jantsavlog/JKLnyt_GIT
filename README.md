@@ -4,6 +4,16 @@ Luodaan sovellus, jonka avulla loppukäyttäjä voi hakea ja keksiä itselleen (
 tekemistä Jyväskylän alueella. Sovellus tarjoaa tietoa alueen aktiviteeteista ja tapahtumista, sekä
 voi ehdottaa erilaista tekemistä käyttäjälle.
 
+# Venuet
+
+- Paviljonki
+
+- Lutakko
+
+- Kaupungin teatteri
+
+Saa lisätä uusia
+
 ## JKLnyt Basic Feature List:
 
 - Kartta Jyväskylästä

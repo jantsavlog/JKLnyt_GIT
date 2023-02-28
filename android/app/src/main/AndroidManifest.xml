@@ -4,6 +4,11 @@
         android:label="jklnyt"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+         <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyC0zAxN58OhJP7IC_Kdiv2ipSSq0WXzCps"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

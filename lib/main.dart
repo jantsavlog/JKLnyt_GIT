@@ -38,12 +38,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.green[700],
+        colorSchemeSeed: Colors.white,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Google Office Locations'),
-          elevation: 2,
+          leading: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.menu),
+          ),
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,

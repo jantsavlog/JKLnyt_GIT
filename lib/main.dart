@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'bottom_sheet.dart';
 import 'google_maps.dart';
+import 'package:jklnyt/navbar.dart';
+import 'package:provider/provider.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -12,6 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<_MyAppState>();
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
@@ -25,10 +29,15 @@ class _MyAppState extends State<MyApp> {
           ),
           backgroundColor: Color.fromARGB(255, 85, 189, 250),
         ),
+        drawer: NavBar(
+        categories:  List<Map>,
+        toggleCategory: ()=>false,
+        ),
         body: Stack(
           children: <Widget>[
             GoogleMapWidget(),
             BottomSheetWidget(scrollController: ScrollController()),
+            
           ],
         ),
       ),

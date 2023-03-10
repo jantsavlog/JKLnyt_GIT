@@ -1,5 +1,5 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:jklnyt/navbar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,22 +26,48 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
+  List<Map> categories = [
+    {'name': 'Music', "isChecked": false},
+    {'name': 'Sports', "isChecked": false},
+    {'name': 'Outdoors', "isChecked": false},
+    {'name': 'Culture', "isChecked": false},
+    {'name': 'Culture1', "isChecked": false},
+    {'name': 'Culture2', "isChecked": false},
+    {'name': 'Culture3', "isChecked": false},
+    {'name': 'Culture4', "isChecked": false},
+    {'name': 'Culture5', "isChecked": false},
+    {'name': 'Culture6', "isChecked": false},
+    {'name': 'Culture7', "isChecked": false},
+    {'name': 'Culture8', "isChecked": false},
+    {'name': 'Culture9', "isChecked": false},
+    {'name': 'Culture11', "isChecked": false},
+    {'name': 'Culture22', "isChecked": false},
+    {'name': 'Culture33', "isChecked": false},
+    {'name': 'Culture44', "isChecked": false},
+    {'name': 'Culture55', "isChecked": false},
+  ];
+
+  void toggleCategory(int index) {
+    categories[index]['isChecked'] = !categories[index]['isChecked'];
+  }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
     return Scaffold(
+      drawer: NavBar(
+        categories: appState.categories,
+        toggleCategory: appState.toggleCategory,
+      ),
       body: Column(
         children: [
           AppBar(
-            leading: IconButton(
-              onPressed: () => false,
-              icon: Icon(Icons.menu),
-            ),
+            title: const Text('JKLnyt'),
           ),
           Expanded(
             flex: 1,

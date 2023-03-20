@@ -1,0 +1,40 @@
+{
+  "events":[
+  {
+  "venue": "Lutakko",
+  "name": "Olavi Uusivirta Jere Valkonen",
+  "day": "4",
+  "month": "3",
+  "tstart": "20",
+  "tend": "02",
+  "price": "29-35",
+  "agelimit": "K-18"},
+  {
+  "venue": "Lutakko",
+  "name": "Ville Haapasalo",
+  "day": "3",
+  "month": "4",
+  "tstart": "20",
+  "tend": "02",
+  "price": "29-35",
+  "agelimit": "Ei ikärajaa"},
+  {
+  "venue": "Musta Kynnys",
+  "name": "Live is Life @ Musta Kynnys: Terveet Kädet Aivolävistys",
+  "day": "14",
+  "month": "4",
+  "tstart": "21",
+  "tend": "03",
+  "price": "10-14",
+  "agelimit": "K-18"},
+  {
+  "venue": "Lutakko",
+  "name": "Reino Nordin",
+  "day": "6",
+  "month": "5",
+  "tstart": "20",
+  "tend": "02",
+  "price": "22-27",
+  "agelimit": "K-18"}
+  ]
+  }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'event_tile.dart';
 
 class BottomSheetWidget extends StatelessWidget {
   final ScrollController scrollController;
+  final List<Map<String, dynamic>> events;
 
-  const BottomSheetWidget({Key? key, required this.scrollController})
+  const BottomSheetWidget(
+      {Key? key, required this.scrollController, required this.events})
       : super(key: key);
 
   @override
@@ -14,7 +17,7 @@ class BottomSheetWidget extends StatelessWidget {
       maxChildSize: 0.9,
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(16),
@@ -26,9 +29,18 @@ class BottomSheetWidget extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(Icons.keyboard_arrow_up),
                   ],
+                ),
+                const SizedBox(height: 5),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: events.length,
+                  itemBuilder: (context, index) {
+                    final event = events[index];
+                    return EventTile(event: event);
+                  },
                 ),
               ],
             ),

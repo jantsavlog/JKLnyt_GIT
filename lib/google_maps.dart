@@ -81,6 +81,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   Widget build(BuildContext context) {
     return GoogleMap(
       onMapCreated: _onMapCreated,
+      zoomControlsEnabled: false,
       initialCameraPosition: CameraPosition(
         target: _center,
         zoom: 11.0,

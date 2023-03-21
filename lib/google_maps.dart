@@ -41,6 +41,39 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           },
         ),
       );
+      _markers.add(
+        Marker(
+          markerId: MarkerId("Kaupunginteatteri"),
+          position: LatLng(62.24040658319171, 25.74755605346733),
+          infoWindow: InfoWindow(title: 'Kaupunginteatteri'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          onTap: () {
+            print("Marker Tapped");
+          },
+        ),
+      );
+      _markers.add(
+        Marker(
+          markerId: MarkerId("Harjun Stadion"),
+          position: LatLng(62.244983795694175, 25.74050249313987),
+          infoWindow: InfoWindow(title: 'Harjun Stadion'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          onTap: () {
+            print("Marker Tapped");
+          },
+        ),
+      );
+      _markers.add(
+        Marker(
+          markerId: MarkerId("Koskenharjun Kenttä"),
+          position: LatLng(62.257990120069664, 25.751134239827522),
+          infoWindow: InfoWindow(title: 'Koskenharjun Kenttä'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          onTap: () {
+            print("Marker Tapped");
+          },
+        ),
+      );
     });
   }
 

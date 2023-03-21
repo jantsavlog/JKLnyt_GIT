@@ -19,8 +19,8 @@
   "price": "29-35",
   "agelimit": "Ei ikärajaa"},
   {
-  "venue": "Musta Kynnys",
-  "name": "Live is Life @ Musta Kynnys: Terveet Kädet Aivolävistys",
+  "venue": "Escape",
+  "name": "Gettomasa",
   "day": "14",
   "month": "4",
   "tstart": "21",
@@ -28,13 +28,31 @@
   "price": "10-14",
   "agelimit": "K-18"},
   {
-  "venue": "Lutakko",
-  "name": "Reino Nordin",
+  "venue": "JJK",
+  "name": "JJK - KUPS",
   "day": "6",
   "month": "5",
-  "tstart": "20",
-  "tend": "02",
-  "price": "22-27",
-  "agelimit": "K-18"}
+  "tstart": "16",
+  "tend": "18",
+  "price": "10-30",
+  "agelimit": "Ei ikärajaa"},
+  {
+  "venue": "Lohi",
+  "name": "Lohi - Puijon Pesis",
+  "day": "12",
+  "month": "5",
+  "tstart": "14",
+  "tend": "16",
+  "price": "5-12",
+  "agelimit": "Ei ikärajaa"},
+  {
+  "venue": "Paviljonki",
+  "name": "Semmarit",
+  "day": "16",
+  "month": "5",
+  "tstart": "14",
+  "tend": "16",
+  "price": "5-12",
+  "agelimit": "K-16"}
   ]
   }

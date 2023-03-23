@@ -74,6 +74,17 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           },
         ),
       );
+      _markers.add(
+        Marker(
+          markerId: MarkerId("Club Escape"),
+          position: LatLng(62.24390360024539, 25.75046044767751),
+          infoWindow: InfoWindow(title: 'Club Escape'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          onTap: () {
+            print("Marker Tapped");
+          },
+        ),
+      );
     });
   }
 
@@ -81,7 +92,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   Widget build(BuildContext context) {
     return GoogleMap(
       onMapCreated: _onMapCreated,
-      zoomControlsEnabled: false,
+      zoomControlsEnabled: true,
       initialCameraPosition: CameraPosition(
         target: _center,
         zoom: 11.0,

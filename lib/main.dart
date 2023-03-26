@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'bottom_sheet.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
+import 'fetch_events.dart';
 
 void main() => runApp(const MyApp());
 
@@ -31,6 +32,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
     // Tässä käsketään ohjelman käynnistyessä lataamaan tapahtumien data
     // taustalla events listaan.
+    getEvents();
     loadEvents();
   }
 
@@ -38,6 +40,10 @@ class MyAppState extends State<MyApp> {
   // sijoittaa sen listaan.
   Future<void> loadEvents() async {
     // Etsintä.
+    //final directory = await getApplicationDocumentsDirectory();
+    //print(directory.path);
+    //final file = File("assets/events.json");
+    //final contents = await file.readAsString();
     final jsonFile = await rootBundle.loadString('assets/events.json');
     // Dekoodaus.
     final jsonData = json.decode(jsonFile);

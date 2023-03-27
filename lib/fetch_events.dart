@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
@@ -37,19 +36,32 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
-    //String eName = json['name'].toString();
-    //int day = int.parse(json['day']);
+    // jos numerotyyppinen arvo puuttuu JSON:ista ja koitetaan int.parse(),
+    // tulee error, siksi eka muutetaan Stringiksi ja tarkistetaan onko tyhjä
+    // vai ei ja sitten parsitaan vasta numeroksi
     String eMonth = json['month'];
     if (eMonth == "") {
       eMonth = "0";
     }
+    String eDay = json['day'];
+    if (eDay == "") {
+      eDay = "0";
+    }
+    String eStart = json['tstart'];
+    if (eStart == "") {
+      eStart = "0";
+    }
+    String eEnd = json['tend'];
+    if (eEnd == "") {
+      eEnd = "0";
+    }
 
     return Event(
       name: json['name'] as String,
-      day: int.parse(json['day']),
+      day: int.parse(eDay),
       month: int.parse(eMonth),
-      tstart: int.parse(json['tstart']),
-      tend: int.parse(json['tend']),
+      tstart: int.parse(eStart),
+      tend: int.parse(eEnd),
       price: json['price'] as String,
       ageLimit: json['agelimit'] as String,
       info: json['info'] as String,
@@ -70,6 +82,7 @@ void getEvents() async {
   }
 }
 
+// muuta vastaus JSON:iksi
 void resToJSON(String response) async {
   final List<dynamic> jsonArr =
       jsonDecode(response).cast<Map<String, dynamic>>();
@@ -80,16 +93,45 @@ void resToJSON(String response) async {
   for (int i = 0; i < jsonArr.length; i++) {
     events.add(Event.fromJson(jsonArr[i]));
   }
-  // luo JSON
+  // luo JSON-lista
   List<dynamic> jsonList = [];
   for (int i = 0; i < events.length; i++) {
     jsonList.add(events[i].toJson());
   }
 
-  final jsonString = jsonEncode(jsonList);
+  // tee JSON objekti jonka sisään lista menee
+  Map<String, dynamic> jsonObject = {"events": []};
+  jsonObject["events"] = jsonList;
 
+  final jsonString = jsonEncode(jsonObject);
+
+  // tallenna tiedostoon
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/test.json');
   await file.writeAsString(jsonString);
-  print("--- TALLENNETTU ${file.path}");
+}
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/test.json');
+}
+
+Future<String> readJSONFile() async {
+  try {
+    final file = await _localFile;
+
+    // lue JSON
+    final contents = await file.readAsString();
+
+    return contents;
+  } catch (e) {
+    // jos ei onnistu, palauta tyhjä string
+    return "";
+  }
 }

@@ -35,7 +35,13 @@ class _NavBarState extends State<NavBar> {
     var availableCategories = <String, bool>{};
     for (String venue in venueCategories.keys) {
       for (Map<String, dynamic> event in widget.events) {
-        if (event['venue'].toLowerCase() == venue) {
+        String ven = "";
+        if (!event.containsKey('venue')) {
+          ven = "Venue";
+        } else {
+          ven = event['venue'];
+        }
+        if (ven.toLowerCase() == venue) {
           if (!availableCategories.keys.contains(venueCategories[venue])) {
             availableCategories[venueCategories[venue]!] = false;
           }

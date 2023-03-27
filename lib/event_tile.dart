@@ -6,8 +6,14 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String venue = "";
+    if (!event.containsKey('venue')) {
+      venue = "Venue";
+    } else {
+      venue = event['venue'];
+    }
     return ListTile(
-      title: Text(event['venue']),
+      title: Text(venue),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

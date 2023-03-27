@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'bottom_sheet.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
@@ -39,17 +38,12 @@ class MyAppState extends State<MyApp> {
   // Tämä taustalla ajettava Future etsii events.jsonin, dekoodaa sen, ja
   // sijoittaa sen listaan.
   Future<void> loadEvents() async {
-    // Etsintä.
-    //final directory = await getApplicationDocumentsDirectory();
-    //print(directory.path);
-    //final file = File("assets/events.json");
-    //final contents = await file.readAsString();
-    final jsonFile = await rootBundle.loadString('assets/events.json');
-    // Dekoodaus.
-    final jsonData = json.decode(jsonFile);
+    // JSON-file haetaan fetch_events.dartissa
+    final jsonData = await readJSONFile();
+    final content = json.decode(jsonData);
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {
-      events = List<Map<String, dynamic>>.from(jsonData['events']);
+      events = List<Map<String, dynamic>>.from(content['events']);
     });
   }
 

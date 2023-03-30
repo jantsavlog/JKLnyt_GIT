@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
@@ -12,6 +13,10 @@ class Event {
   final String price;
   final String ageLimit;
   final String info;
+  final String venue;
+  final String category;
+  final double lat;
+  final double lon;
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -21,19 +26,26 @@ class Event {
         'tend': tend,
         'price': price,
         'agelimit': ageLimit,
-        'info': info
+        'info': info,
+        'venue': venue,
+        'category': category,
+        'lat': lat,
+        'lon': lon
       };
 
-  const Event({
-    required this.name,
-    required this.day,
-    required this.month,
-    required this.tstart,
-    required this.tend,
-    required this.price,
-    required this.ageLimit,
-    required this.info,
-  });
+  const Event(
+      {required this.name,
+      required this.day,
+      required this.month,
+      required this.tstart,
+      required this.tend,
+      required this.price,
+      required this.ageLimit,
+      required this.info,
+      required this.category,
+      required this.venue,
+      required this.lat,
+      required this.lon});
 
   factory Event.fromJson(Map<String, dynamic> json) {
     // jos numerotyyppinen arvo puuttuu JSON:ista ja koitetaan int.parse(),
@@ -47,25 +59,36 @@ class Event {
     if (eDay == "") {
       eDay = "0";
     }
-    String eStart = json['tstart'];
-    if (eStart == "") {
-      eStart = "0";
+    dynamic eStart = json['tstart'];
+    if (eStart.runtimeType != int) {
+      eStart = 0;
     }
-    String eEnd = json['tend'];
-    if (eEnd == "") {
-      eEnd = "0";
+    dynamic eEnd = json['tend'];
+    if (eEnd.runtimeType != int) {
+      eEnd = 0;
+    }
+    dynamic ePrice = json['price'];
+    if (ePrice.runtimeType != String) {
+      ePrice = ePrice.toString();
+    }
+    dynamic eAge = json['agelimit'];
+    if (eAge.runtimeType != String) {
+      eAge = "Ei ikärajaa";
     }
 
     return Event(
-      name: json['name'] as String,
-      day: int.parse(eDay),
-      month: int.parse(eMonth),
-      tstart: int.parse(eStart),
-      tend: int.parse(eEnd),
-      price: json['price'] as String,
-      ageLimit: json['agelimit'] as String,
-      info: json['info'] as String,
-    );
+        name: json['name'] as String,
+        day: int.parse(eDay),
+        month: int.parse(eMonth),
+        tstart: eStart,
+        tend: eEnd,
+        price: ePrice as String,
+        ageLimit: eAge,
+        info: json['info'] as String,
+        venue: json['venue'] as String,
+        category: json['category'] as String,
+        lat: json['lat'],
+        lon: json['lon']);
   }
 }
 

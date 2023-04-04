@@ -26,7 +26,6 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     final path = '${directory.path}/test.json';
     final file = File(path);
     final jsonData = json.decode(await file.readAsString());
-    print(jsonData['events'][0]);
 
     // Lisätään markerit kartalle JSON-datan pohjalta
     setState(() {

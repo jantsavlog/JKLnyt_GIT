@@ -6,12 +6,14 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 class GoogleMapWidget extends StatefulWidget {
+  const GoogleMapWidget({super.key});
+
   @override
-  _GoogleMapWidgetState createState() => _GoogleMapWidgetState();
+  GoogleMapWidgetState createState() => GoogleMapWidgetState();
 }
 
-class _GoogleMapWidgetState extends State<GoogleMapWidget> {
-  Completer<GoogleMapController> _controller = Completer();
+class GoogleMapWidgetState extends State<GoogleMapWidget> {
+  final Completer<GoogleMapController> _controller = Completer();
 
   static const LatLng _center = LatLng(62.238838951526844, 25.75458690343214);
 
@@ -35,7 +37,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           infoWindow: InfoWindow(title: event['venue']),
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           onTap: () {
-            print("Marker Tapped");
+            //print("Marker Tapped");
           },
         );
       }).toSet();
@@ -47,7 +49,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     return GoogleMap(
       onMapCreated: _onMapCreated,
       zoomControlsEnabled: true,
-      initialCameraPosition: CameraPosition(
+      initialCameraPosition: const CameraPosition(
         target: _center,
         zoom: 11.0,
       ),

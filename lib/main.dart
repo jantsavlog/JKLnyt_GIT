@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'bottom_sheet.dart';
-import 'event_controller.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
 import 'fetch_events.dart';
@@ -20,7 +19,7 @@ class MyAppState extends State<MyApp> {
   // Lista, jonka sisällä useampi Mappi, tämän on tarkoitus saada sisältönsä
   // assets-kansion events.json tiedostosta, johon myöhemmin ohjataan skreipattu
   // data.
-  Events events = Events({});
+  List<Event> events = [];
 
   // Perus initialize.
   @override
@@ -32,13 +31,12 @@ class MyAppState extends State<MyApp> {
     loadEvents();
   }
 
-  Map<Event, bool> convertToEventMap(List<Map<String, dynamic>> content) {
-    Map<Event, bool> events = {};
-    content.forEach((element) {
-      events[Event.fromJson(element)] = true;
-    });
-    events = Map.fromEntries(
-        events.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
+  List<Event> convertToEventList(List<Map<String, dynamic>> content) {
+    List<Event> events = [];
+    for (var element in content) {
+      events.add(Event.fromJson(element));
+    }
+    events.sort((a, b) => a.compareTo(b));
     return events;
   }
 
@@ -50,7 +48,7 @@ class MyAppState extends State<MyApp> {
     final content = json.decode(jsonData).cast<Map<String, dynamic>>();
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {
-      events = Events(convertToEventMap(content));
+      events = convertToEventList(content);
     });
   }
 
@@ -80,7 +78,7 @@ class MyAppState extends State<MyApp> {
         // -> Järjestys on alimmasta päällimmäiseen.
         body: Stack(
           children: <Widget>[
-            GoogleMapWidget(),
+            const GoogleMapWidget(),
             // Tässä luodaan bottom sheet kartan päälle.
             BottomSheetWidget(
               scrollController: ScrollController(),

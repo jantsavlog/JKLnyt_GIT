@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'event_controller.dart';
+import 'event.dart';
 import 'event_tile.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   final ScrollController scrollController;
-  final Events events;
+  final List<Event> events;
 
   const BottomSheetWidget(
       {Key? key, required this.scrollController, required this.events})
@@ -57,12 +57,11 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     child: Scrollbar(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: widget.events.events.length,
+                        itemCount: widget.events.length,
                         itemBuilder: (context, index) {
-                          final event =
-                              widget.events.events.entries.elementAt(index);
-                          if (event.value == true) {
-                            return EventTile(event: event.key);
+                          final event = widget.events.elementAt(index);
+                          if (event.show == true) {
+                            return EventTile(event: event);
                           }
                           return null;
                         },

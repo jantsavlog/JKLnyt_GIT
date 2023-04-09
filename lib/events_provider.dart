@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'event_controller.dart';
+import 'event.dart';
 
 class EventsProvider extends ChangeNotifier {
-  Events _events;
+  List<Event> _events;
 
   EventsProvider(this._events);
 
-  Events get events => _events;
+  List<Event> get events => _events;
 
-  void updateEvents(Events events) {
+  void updateEvents(List<Event> events) {
     _events = events;
     notifyListeners();
   }

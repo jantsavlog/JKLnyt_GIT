@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'event_controller.dart';
+import 'event.dart';
 
 class NavBar extends StatefulWidget {
-  final Events events;
+  final List<Event> events;
 
   const NavBar({Key? key, required this.events}) : super(key: key);
 
@@ -28,12 +28,12 @@ class _NavBarState extends State<NavBar> {
   // siellä).
   Map<String, bool> makeCategoryMap() {
     var availableCategories = <String, bool>{};
-    widget.events.events.forEach((event, show) {
-      String category = event.category;
+    for (Event event in widget.events) {
+      String category = event.info['category'];
       if (!availableCategories.keys.contains(category)) {
-        availableCategories[category] = show;
+        availableCategories[category] = event.info['show'];
       }
-    });
+    }
 
     return availableCategories;
   }

@@ -28,7 +28,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
 
     // Lisätään markerit kartalle JSON-datan pohjalta
     setState(() {
-      _markers = jsonData['events'].map<Marker>((event) {
+      _markers = jsonData.map<Marker>((event) {
         return Marker(
           markerId: MarkerId(event['venue']),
           position: LatLng(event['lat'], event['lon']),

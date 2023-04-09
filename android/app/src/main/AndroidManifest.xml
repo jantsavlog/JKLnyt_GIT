@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jklnyt">
 
-    
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
         android:label="jklnyt"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
          <!-- TODO: Add your Google Maps API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value=""/>
+               android:value="AIzaSyC0zAxN58OhJP7IC_Kdiv2ipSSq0WXzCps"/>
 
         <activity
             android:name=".MainActivity"

@@ -1,12 +1,11 @@
-//import 'dart:convert';
-//import 'dart:io';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'bottom_sheet.dart';
+import 'event_controller.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
 import 'fetch_events.dart';
+import 'event.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,12 +17,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Lista kategorioista testaamista varten.
-  List<Map> categories = [];
   // Lista, jonka sisällä useampi Mappi, tämän on tarkoitus saada sisältönsä
   // assets-kansion events.json tiedostosta, johon myöhemmin ohjataan skreipattu
   // data.
-  List<Map<String, dynamic>> events = [];
+  Events events = Events({});
 
   // Perus initialize.
   @override
@@ -35,15 +32,25 @@ class MyAppState extends State<MyApp> {
     loadEvents();
   }
 
+  Map<Event, bool> convertToEventMap(List<Map<String, dynamic>> content) {
+    Map<Event, bool> events = {};
+    content.forEach((element) {
+      events[Event.fromJson(element)] = true;
+    });
+    events = Map.fromEntries(
+        events.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
+    return events;
+  }
+
   // Tämä taustalla ajettava Future etsii events.jsonin, dekoodaa sen, ja
   // sijoittaa sen listaan.
   Future<void> loadEvents() async {
     // JSON-file haetaan fetch_events.dartissa
     final jsonData = await readJSONFile();
-    final content = json.decode(jsonData);
+    final content = json.decode(jsonData).cast<Map<String, dynamic>>();
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {
-      events = List<Map<String, dynamic>>.from(content['events']);
+      events = Events(convertToEventMap(content));
     });
   }
 

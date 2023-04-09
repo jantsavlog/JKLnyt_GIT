@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'event_controller.dart';
 
 class NavBar extends StatefulWidget {
-  final List<Map<String, dynamic>> events;
+  final Events events;
 
   const NavBar({Key? key, required this.events}) : super(key: key);
 
@@ -10,18 +11,12 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  Map<String, String> venueCategories = {};
   Map<String, bool> categories = {};
 
   // Perus initialize.
   @override
   void initState() {
     super.initState();
-    // Luodaan mappi siitä mitä kategoriaa jokainen venue edustaa.
-    venueCategories = makeVenueCategoryMap({
-      ['lutakko', 'escape', 'paviljonki']: 'Music',
-      ['jjk', 'lohi']: 'Sports'
-    });
     // Tässä vain luodaan mappi jota käytetään ns. "kytkimenä", onko kategoria
     // valittu vai ei.
     categories = makeCategoryMap();
@@ -33,41 +28,19 @@ class _NavBarState extends State<NavBar> {
   // siellä).
   Map<String, bool> makeCategoryMap() {
     var availableCategories = <String, bool>{};
-    for (String venue in venueCategories.keys) {
-      for (Map<String, dynamic> event in widget.events) {
-        String ven = "";
-        if (!event.containsKey('venue')) {
-          ven = "Venue";
-        } else {
-          ven = event['venue'];
-        }
-        if (ven.toLowerCase() == venue) {
-          if (!availableCategories.keys.contains(venueCategories[venue])) {
-            availableCategories[venueCategories[venue]!] = false;
-          }
-        }
+    widget.events.events.forEach((event, show) {
+      String category = event.category;
+      if (!availableCategories.keys.contains(category)) {
+        availableCategories[category] = show;
       }
-    }
+    });
 
     return availableCategories;
   }
 
   // Kytkee tapahtuman valituksi ja pois.
-  void toggleCategory(String key) {
-    categories[key] = !categories[key]!;
-  }
-
-  // Tämä metodi rakentaa mapin tapahtumapaikoista ja niiden kategorioista,
-  // ettei sitä tarvitse tehdä täysin käsin.
-  Map<String, String> makeVenueCategoryMap(Map<List<String>, String> map) {
-    var newMap = <String, String>{};
-    for (var entry in map.entries) {
-      var keyList = entry.key;
-      for (var key in keyList) {
-        newMap[key] = entry.value;
-      }
-    }
-    return newMap;
+  void toggleCategory(String category) {
+    categories[category] = !categories[category]!;
   }
 
   @override

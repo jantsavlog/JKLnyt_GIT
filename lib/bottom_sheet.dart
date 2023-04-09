@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'event_controller.dart';
 import 'event_tile.dart';
 
-class BottomSheetWidget extends StatelessWidget {
+class BottomSheetWidget extends StatefulWidget {
   final ScrollController scrollController;
-  final List<Map<String, dynamic>> events;
+  final Events events;
 
   const BottomSheetWidget(
       {Key? key, required this.scrollController, required this.events})
       : super(key: key);
 
+  @override
+  State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
+}
+
+class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     // Luodaan bottom sheet, alla olevat double arvot ovat alkukoko, minimikoko,
@@ -39,7 +45,6 @@ class BottomSheetWidget extends StatelessWidget {
                 SingleChildScrollView(
                   controller: scrollController,
                   child: const SizedBox(
-                    height: 32,
                     width: double.infinity,
                     child: Icon(Icons.drag_handle_rounded),
                   ),
@@ -47,14 +52,21 @@ class BottomSheetWidget extends StatelessWidget {
                 // Luodaan kaiken saatavilla olevan tilan täyttävä listview,
                 // joka on scrollattava luettelo widgettejä.
                 Expanded(
-                  child: Scrollbar(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: events.length,
-                      itemBuilder: (context, index) {
-                        final event = events[index];
-                        return EventTile(event: event);
-                      },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Scrollbar(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: widget.events.events.length,
+                        itemBuilder: (context, index) {
+                          final event =
+                              widget.events.events.entries.elementAt(index);
+                          if (event.value == true) {
+                            return EventTile(event: event.key);
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                 ),

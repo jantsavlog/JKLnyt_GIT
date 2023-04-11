@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:jklnyt/events_provider.dart';
+import 'package:provider/provider.dart';
 import 'event.dart';
 import 'event_tile.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   final ScrollController scrollController;
-  final List<Event> events;
+  //final List<Event> events;
 
   const BottomSheetWidget(
-      {Key? key, required this.scrollController, required this.events})
+      {Key? key, required this.scrollController /*, required this.events*/})
       : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class BottomSheetWidget extends StatefulWidget {
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
+    List<Event> events = Provider.of<EventsProvider>(context).shownEvents;
     // Luodaan bottom sheet, alla olevat double arvot ovat alkukoko, minimikoko,
     // maksimikoko, sekä kohdat mihin sheetti snappaa.
     return DraggableScrollableSheet(
@@ -57,13 +60,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     child: Scrollbar(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: widget.events.length,
+                        itemCount: events.length,
                         itemBuilder: (context, index) {
-                          final event = widget.events.elementAt(index);
-                          if (event.show == true) {
-                            return EventTile(event: event);
-                          }
-                          return null;
+                          final event = events.elementAt(index);
+                          return EventTile(event: event);
                         },
                       ),
                     ),

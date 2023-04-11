@@ -1,32 +1,10 @@
 class Event {
   final Map<String, dynamic> info;
-  final bool show;
-  // final String name;
-  // final DateTime date;
-  // final String tstart;
-  // final String tend;
-  // final String price;
-  // final String ageLimit;
-  // final String info;
-  // final String venue;
-  // final String category;
-  // final double lat;
-  // final double lon;
+  bool show;
 
-  const Event({
+  Event({
     required this.info,
     required this.show,
-    //required this.name,
-    //required this.date,
-    //required this.tstart,
-    //required this.tend,
-    //required this.price,
-    //required this.ageLimit,
-    //required this.info,
-    //required this.category,
-    //required this.venue,
-    //required this.lat,
-    //required this.lon
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -44,7 +22,7 @@ class Event {
       if (eDate.isBefore(DateTime.now())) {
         eDate = DateTime(eDate.year + 1, eDate.month, eDate.day);
       }
-    } else if (json['date']) {
+    } else if (json.containsKey('date')) {
       eDate = DateTime.parse(json['date']);
     }
     String eStart = json['tstart'].toString();
@@ -84,17 +62,6 @@ class Event {
     return Event(
       info: eEvent,
       show: eShow,
-      //name: json['name'] as String,
-      //date: eDate,
-      //tstart: eStart,
-      //tend: eEnd,
-      //price: ePrice as String,
-      //ageLimit: eAge,
-      //info: json['info'] as String,
-      //venue: json['venue'] as String,
-      //category: json['category'] as String,
-      //lat: json['lat'],
-      //lon: json['lon']
     );
   }
 

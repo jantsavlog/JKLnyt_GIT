@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jklnyt/events_provider.dart';
+import 'package:provider/provider.dart';
 import 'bottom_sheet.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
 import 'fetch_events.dart';
 import 'event.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(ChangeNotifierProvider(
+      create: (_) => EventsProvider(),
+      child: const MyApp(),
+    ));
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -19,7 +24,7 @@ class MyAppState extends State<MyApp> {
   // Lista, jonka sisällä useampi Mappi, tämän on tarkoitus saada sisältönsä
   // assets-kansion events.json tiedostosta, johon myöhemmin ohjataan skreipattu
   // data.
-  List<Event> events = [];
+  //List<Event> events = [];
 
   // Perus initialize.
   @override
@@ -48,7 +53,7 @@ class MyAppState extends State<MyApp> {
     final content = json.decode(jsonData).cast<Map<String, dynamic>>();
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {
-      events = convertToEventList(content);
+      context.read<EventsProvider>().setEvents(convertToEventList(content));
     });
   }
 
@@ -70,10 +75,7 @@ class MyAppState extends State<MyApp> {
           scrolledUnderElevation: 0,
         ),
         // Tässä luodaan sivusta tuleva kategoriavalikko.
-        drawer: NavBar(
-          //categories: categories,
-          events: events,
-        ),
+        drawer: const NavBar(),
         // Stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
         // -> Järjestys on alimmasta päällimmäiseen.
         body: Stack(
@@ -82,7 +84,6 @@ class MyAppState extends State<MyApp> {
             // Tässä luodaan bottom sheet kartan päälle.
             BottomSheetWidget(
               scrollController: ScrollController(),
-              events: events,
             ),
           ],
         ),

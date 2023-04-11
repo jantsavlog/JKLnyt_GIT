@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jklnyt/events_provider.dart';
+import 'package:provider/provider.dart';
 import 'event.dart';
 
 class NavBar extends StatefulWidget {
-  final List<Event> events;
-
-  const NavBar({Key? key, required this.events}) : super(key: key);
+  const NavBar({Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -19,7 +19,7 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     // Tässä vain luodaan mappi jota käytetään ns. "kytkimenä", onko kategoria
     // valittu vai ei.
-    categories = makeCategoryMap();
+    //categories = makeCategoryMap();
   }
 
   // Tämä metodi käy läpi venueCategories mapin ja vertaa omia avainarvojaan
@@ -28,10 +28,10 @@ class _NavBarState extends State<NavBar> {
   // siellä).
   Map<String, bool> makeCategoryMap() {
     var availableCategories = <String, bool>{};
-    for (Event event in widget.events) {
+    for (Event event in Provider.of<EventsProvider>(context).events) {
       String category = event.info['category'];
       if (!availableCategories.keys.contains(category)) {
-        availableCategories[category] = event.info['show'];
+        availableCategories[category] = event.show;
       }
     }
 
@@ -41,10 +41,12 @@ class _NavBarState extends State<NavBar> {
   // Kytkee tapahtuman valituksi ja pois.
   void toggleCategory(String category) {
     categories[category] = !categories[category]!;
+    context.read<EventsProvider>().showEvents(category);
   }
 
   @override
   Widget build(BuildContext context) {
+    categories = makeCategoryMap();
     return Drawer(
       child: Column(
         children: [

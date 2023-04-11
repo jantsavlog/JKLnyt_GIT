@@ -1,14 +1,17 @@
-//import 'dart:convert';
-//import 'dart:io';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:jklnyt/events_provider.dart';
+import 'package:provider/provider.dart';
 import 'bottom_sheet.dart';
 import 'google_maps.dart';
 import 'package:jklnyt/navbar.dart';
 import 'fetch_events.dart';
+import 'event.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(ChangeNotifierProvider(
+      create: (_) => EventsProvider(),
+      child: const MyApp(),
+    ));
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -18,12 +21,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Lista kategorioista testaamista varten.
-  List<Map> categories = [];
   // Lista, jonka sisällä useampi Mappi, tämän on tarkoitus saada sisältönsä
   // assets-kansion events.json tiedostosta, johon myöhemmin ohjataan skreipattu
   // data.
-  List<Map<String, dynamic>> events = [];
+  //List<Event> events = [];
 
   // Perus initialize.
   @override
@@ -35,15 +36,24 @@ class MyAppState extends State<MyApp> {
     loadEvents();
   }
 
+  List<Event> convertToEventList(List<Map<String, dynamic>> content) {
+    List<Event> events = [];
+    for (var element in content) {
+      events.add(Event.fromJson(element));
+    }
+    events.sort((a, b) => a.compareTo(b));
+    return events;
+  }
+
   // Tämä taustalla ajettava Future etsii events.jsonin, dekoodaa sen, ja
   // sijoittaa sen listaan.
   Future<void> loadEvents() async {
     // JSON-file haetaan fetch_events.dartissa
     final jsonData = await readJSONFile();
-    final content = json.decode(jsonData);
+    final content = json.decode(jsonData).cast<Map<String, dynamic>>();
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {
-      events = List<Map<String, dynamic>>.from(content['events']);
+      context.read<EventsProvider>().setEvents(convertToEventList(content));
     });
   }
 
@@ -65,19 +75,15 @@ class MyAppState extends State<MyApp> {
           scrolledUnderElevation: 0,
         ),
         // Tässä luodaan sivusta tuleva kategoriavalikko.
-        drawer: NavBar(
-          //categories: categories,
-          events: events,
-        ),
+        drawer: const NavBar(),
         // Stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
         // -> Järjestys on alimmasta päällimmäiseen.
         body: Stack(
           children: <Widget>[
-            GoogleMapWidget(),
+            const GoogleMapWidget(),
             // Tässä luodaan bottom sheet kartan päälle.
             BottomSheetWidget(
               scrollController: ScrollController(),
-              events: events,
             ),
           ],
         ),

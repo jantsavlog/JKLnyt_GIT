@@ -1,34 +1,54 @@
 import 'package:flutter/material.dart';
+import 'event.dart';
 
 class EventTile extends StatelessWidget {
-  final Map<String, dynamic> event;
+  final Event event;
   const EventTile({Key? key, required this.event}) : super(key: key);
+
+  String formatTime(Event event) {
+    if (event.info['tend'] == '0') {
+      if (event.info['tstart'] == '0') {
+        return 'Ei tiedossa';
+      }
+      return '${event.info['tstart']}-';
+    }
+
+    return '${event.info['tstart']}-${event.info['tend']}';
+  }
+
+  String formatDate(Event event) {
+    return '${event.info['date'].day}.${event.info['date'].month}';
+  }
+
+  String formatPrice(Event event) {
+    if (event.info['price'] == 'Ei tiedossa') {
+      return event.info['price'];
+    }
+
+    return '${event.info['price']}€';
+  }
 
   @override
   Widget build(BuildContext context) {
-    String venue = "";
-    if (!event.containsKey('venue')) {
-      venue = "Venue";
-    } else {
-      venue = event['venue'];
-    }
-    return ListTile(
-      title: Text(venue),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(event['name']),
-          const SizedBox(height: 4),
-          Text('Date: ${event['day']}/${event['month']}'),
-          const SizedBox(height: 4),
-          Text('Time: ${event['tstart']}-${event['tend']}'),
-          const SizedBox(height: 4),
-          Text('Ticket price: ${event['price']}'),
-          const SizedBox(height: 4),
-          Text('Age limit: ${event['agelimit']}'),
-        ],
+    return Card(
+      child: ListTile(
+        title: Text(event.info['venue']),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(event.info['name']),
+            const SizedBox(height: 4),
+            Text('Päivämäärä: ${formatDate(event)}'),
+            const SizedBox(height: 4),
+            Text('Aika: ${formatTime(event)}'),
+            const SizedBox(height: 4),
+            Text('Hinta: ${formatPrice(event)}'),
+            const SizedBox(height: 4),
+            Text('Ikäraja: ${event.info['agelimit']}'),
+          ],
+        ),
+        onTap: () {},
       ),
-      onTap: () {},
     );
   }
 }

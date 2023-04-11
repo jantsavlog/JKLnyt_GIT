@@ -21,11 +21,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Lista, jonka sisällä useampi Mappi, tämän on tarkoitus saada sisältönsä
-  // assets-kansion events.json tiedostosta, johon myöhemmin ohjataan skreipattu
-  // data.
-  //List<Event> events = [];
-
   // Perus initialize.
   @override
   void initState() {

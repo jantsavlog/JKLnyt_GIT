@@ -5,8 +5,13 @@ import 'package:path_provider/path_provider.dart';
 
 // hae tapahtumat palvelimelta
 void getEvents() async {
-  Uri url = Uri.parse('https://mobdevsrv-1.it.jyu.fi/get');
-  final res = await http.get(url);
+  final apiKey = '';
+  final url = 'https://mobdevsrv-1.it.jyu.fi/get';
+
+  final res = await http.get(
+    Uri.parse(url),
+    headers: {'X-API-KEY': apiKey},
+  );
 
   // vastaus ok
   if (res.statusCode == 200) {

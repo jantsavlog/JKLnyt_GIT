@@ -44,7 +44,7 @@ class MyAppState extends State<MyApp> {
   // sijoittaa sen listaan.
   Future<void> loadEvents() async {
     // JSON-file haetaan fetch_events.dartissa
-    final jsonData = await readJSONFile();
+    final jsonData = await readJSONFile('test.json');
     final content = json.decode(jsonData).cast<Map<String, dynamic>>();
     // setState()-metodi päivittää StatefulWidgetin tilan.
     setState(() {

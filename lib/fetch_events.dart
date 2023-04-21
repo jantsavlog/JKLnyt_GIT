@@ -2,14 +2,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
 import 'event.dart';
 
 // ----- BACKEND FETCH -----
 // hae tapahtumat palvelimelta
 void getEvents() async {
-  const apiKey =
-      'jMM2YpLe3qC9eXOYfgJHrccqJjEmSSuehrLJwIW57Hnyby1cpXihs5D0eGam2Viu';
+  const apiKey = '';
   const url = 'https://mobdevsrv-1.it.jyu.fi/get';
 
   final res = await http.get(
@@ -29,8 +27,11 @@ void getEvents() async {
 // ----- USER PREFERENCE HANDLING -----
 Future<Map<String, dynamic>> loadCategories() async {
   final jsonData = await readJSONFile('categories.json');
-  final content = json.decode(jsonData);
-  return content;
+  if (jsonData.isNotEmpty) {
+    final content = json.decode(jsonData);
+    return content;
+  }
+  return {};
 }
 
 // ----- EVENT HANDLING -----
@@ -66,21 +67,26 @@ void resToJSON(String response) async {
   await file.writeAsString(jsonString);
 }
 
-void writeToFile(Map<String, bool> contents, String fileName) async {
+// tiedostoon kirjoituksen apumetodi
+void writeToFile(Map<String, dynamic> contents, String fileName) async {
   final file = await localFile(fileName);
   await file.writeAsString(jsonEncode(contents));
 }
 
+// haetaan lokaalien tiedostojen kansio
 Future<String> localPath() async {
   final directory = await getApplicationDocumentsDirectory();
   return directory.path;
 }
 
+// haetaan lokaalien tiedostojen kansioista oikea tiedosto
 Future<File> localFile(String fileName) async {
   final path = await localPath();
   return File('$path/$fileName');
 }
 
+// luetaan tiedostosta ja palautetaan json-string, jos ei onnistu palautetaan
+// tyhjä.
 Future<String> readJSONFile(String fileName) async {
   try {
     final file = await localFile(fileName);

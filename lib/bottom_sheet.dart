@@ -6,10 +6,8 @@ import 'event_tile.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   final ScrollController scrollController;
-  //final List<Event> events;
 
-  const BottomSheetWidget(
-      {Key? key, required this.scrollController /*, required this.events*/})
+  const BottomSheetWidget({Key? key, required this.scrollController})
       : super(key: key);
 
   @override
@@ -20,16 +18,16 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     List<Event> events = Provider.of<EventsProvider>(context).shownEvents;
-    // Luodaan bottom sheet, alla olevat double arvot ovat alkukoko, minimikoko,
+    // luodaan bottom sheet, alla olevat double arvot ovat alkukoko, minimikoko,
     // maksimikoko, sekä kohdat mihin sheetti snappaa.
     return DraggableScrollableSheet(
-      initialChildSize: 0.038,
-      minChildSize: 0.038,
+      initialChildSize: 0.04,
+      minChildSize: 0.04,
       maxChildSize: 0.9,
       snap: true,
       snapSizes: const [0.5],
       builder: (BuildContext context, ScrollController scrollController) {
-        // Koska appbar on nyt läpinäkyvä ja kartta venyy sen alle, pitää
+        // koska appbar on nyt läpinäkyvä ja kartta venyy sen alle, pitää
         // sisältöä muokata laskemaan asiat hieman eri tavalla.
         return MediaQuery.removePadding(
           context: context,
@@ -43,7 +41,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             ),
             child: Column(
               children: [
-                // Tämä widget on tässä jotta saadaan joku ankkuri bottom
+                // tämä widget on tässä jotta saadaan joku ankkuri bottom
                 // sheetin avaamiselle.
                 SingleChildScrollView(
                   controller: scrollController,
@@ -52,7 +50,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     child: Icon(Icons.drag_handle_rounded),
                   ),
                 ),
-                // Luodaan kaiken saatavilla olevan tilan täyttävä listview,
+                // luodaan kaiken saatavilla olevan tilan täyttävä listview,
                 // joka on scrollattava luettelo widgettejä.
                 Expanded(
                   child: Padding(

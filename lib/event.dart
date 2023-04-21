@@ -8,9 +8,6 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
-    // jos numerotyyppinen arvo puuttuu JSON:ista ja koitetaan int.parse(),
-    // tulee error, siksi eka muutetaan Stringiksi ja tarkistetaan onko tyhjä
-    // vai ei ja sitten parsitaan vasta numeroksi
     bool eShow = true;
     if (json['show'] == 'false') {
       eShow = json['show'];

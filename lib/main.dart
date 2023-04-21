@@ -19,20 +19,14 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // Perus initialize.
+  // perus initialize.
   @override
   void initState() {
     super.initState();
-    // Tässä käsketään ohjelman käynnistyessä lataamaan tapahtumien data
-    // taustalla events listaan.
+    // haetaan data backendista ja tehdään sille lukuisia asioita.
     getEvents();
-    loader();
-  }
-
-  void loader() async {
-    final content = await loadEvents();
     setState(() {
-      context.read<EventsProvider>().setEvents(convertToEventList(content));
+      context.read<EventsProvider>().setEvents();
     });
   }
 
@@ -43,24 +37,24 @@ class MyAppState extends State<MyApp> {
         useMaterial3: true,
         colorSchemeSeed: Colors.white,
       ),
-      // Itse ohjelmaikkunan perusrakenne alkaa tästä.
+      // ohjelmaikkunan perusrakenne alkaa tästä.
       home: Scaffold(
         extendBodyBehindAppBar: true,
-        // Yläpalkki.
+        // yläpalkki.
         appBar: AppBar(
           title: const Text('JKLnyt'),
           backgroundColor: Colors.transparent,
           elevation: 0,
           scrolledUnderElevation: 0,
         ),
-        // Tässä luodaan sivusta tuleva kategoriavalikko.
+        // tässä luodaan sivusta tuleva kategoriavalikko.
         drawer: const NavBar(),
-        // Stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
-        // -> Järjestys on alimmasta päällimmäiseen.
+        // stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
+        // -> särjestys on alimmasta päällimmäiseen.
         body: Stack(
           children: <Widget>[
             const GoogleMapWidget(),
-            // Tässä luodaan bottom sheet kartan päälle.
+            // sässä luodaan bottom sheet kartan päälle.
             BottomSheetWidget(
               scrollController: ScrollController(),
             ),

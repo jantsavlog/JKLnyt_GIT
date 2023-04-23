@@ -23,7 +23,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     return DraggableScrollableSheet(
       initialChildSize: 0.04,
       minChildSize: 0.04,
-      maxChildSize: 0.9,
+      maxChildSize: 1.0,
       snap: true,
       snapSizes: const [0.5],
       builder: (BuildContext context, ScrollController scrollController) {

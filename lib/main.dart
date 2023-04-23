@@ -39,11 +39,11 @@ class MyAppState extends State<MyApp> {
       ),
       // ohjelmaikkunan perusrakenne alkaa tästä.
       home: Scaffold(
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         // yläpalkki.
         appBar: AppBar(
           title: const Text('JKLnyt'),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           elevation: 0,
           scrolledUnderElevation: 0,
         ),

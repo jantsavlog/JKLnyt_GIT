@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'event.dart';
 
 class EventTile extends StatelessWidget {
@@ -28,11 +29,31 @@ class EventTile extends StatelessWidget {
     return '${event.info['price']}€';
   }
 
+  Future<void> _launchInfo() async {
+    String url = event.info['info'];
+    Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Text(event.info['venue']),
+        title: Row(
+          children: [
+            if (event.info['info'] == "") ...[
+              Text(event.info['venue']),
+            ] else ...[
+              Text(event.info['venue']),
+              IconButton(
+                icon: const Icon(Icons.info),
+                onPressed: _launchInfo,
+              )
+            ]
+          ],
+        ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -18,12 +18,26 @@ class EventsProvider extends ChangeNotifier {
   // luo mapin saatavilla olevista kategorioista, jos kategoria ei ole "uusi" ei
   // sille tehdä mitään, jotta käyttäjäpreferenssien eheys säilyisi
   void makeCategoryMap() {
+    Map<String, int> newCategories = Map.fromEntries(
+      categories.entries.map((entry) => MapEntry(entry.key, 0)),
+    );
     for (Event event in events) {
       String category = event.info['category'];
       if (!categories.keys.contains(category)) {
+        newCategories[category] = 1;
         categories[category] = event.show;
+      } else {
+        newCategories[category] = (newCategories[category] ?? 0) + 1;
       }
     }
+
+    newCategories.forEach(
+      (key, value) {
+        if (categories.containsKey(key) && value == 0) {
+          categories.remove(key);
+        }
+      },
+    );
 
     writeToFile(categories, 'categories.json');
     notifyListeners();

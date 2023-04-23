@@ -12,17 +12,21 @@ class Event {
     if (json['show'] == 'false') {
       eShow = json['show'];
     }
+    DateTime today = DateTime.now();
+    today = DateTime(today.year, today.month, today.day);
     DateTime eDate = DateTime.now();
     if (json['month'] != "" && json['day'] != "") {
       eDate = DateTime(DateTime.now().year, int.parse(json['month']),
           int.parse(json['day']));
-      if (eDate.isBefore(DateTime.now())) {
+      if (eDate.isBefore(today)) {
         eDate = DateTime(eDate.year + 1, eDate.month, eDate.day);
       }
     } else if (json.containsKey('date')) {
       eDate = DateTime.parse(json['date']);
     }
     String eStart = json['tstart'].toString();
+    eStart = eStart.length > 5 ? eStart.substring(0, 5) : eStart;
+    String parseable = eStart.length >= 2 ? eStart.substring(0, 2) : eStart;
     if (eStart != '0') {
       if (!eStart.contains(':')) {
         eStart += ':00';
@@ -34,6 +38,7 @@ class Event {
         eEnd += ':00';
       }
     }
+    eDate = eDate.add(Duration(hours: int.parse(parseable)));
     dynamic ePrice = json['price'];
     if (ePrice.runtimeType != String) {
       ePrice = ePrice.toString();

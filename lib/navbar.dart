@@ -52,8 +52,8 @@ class _NavBarState extends State<NavBar> {
                   itemBuilder: (context, index) {
                     return ListTile(
                         leading: categories.values.elementAt(index)
-                            ? const Icon(Icons.check)
-                            : const Icon(Icons.add),
+                            ? const Icon(Icons.check, color: Colors.blue)
+                            : const Icon(Icons.add, color: Colors.blue),
                         title: Text(categories.keys.elementAt(index)),
                         onTap: () => setState(
                               () => context

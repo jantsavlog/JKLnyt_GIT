@@ -43,7 +43,7 @@ class MyAppState extends State<MyApp> {
         // yläpalkki.
         appBar: AppBar(
           title: const Text('JKLnyt'),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.lightBlue,
           elevation: 0,
           scrolledUnderElevation: 0,
         ),

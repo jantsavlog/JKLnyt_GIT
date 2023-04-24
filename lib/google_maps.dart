@@ -26,7 +26,10 @@ class GoogleMapWidgetState extends State<GoogleMapWidget> {
     List<Event> events = Provider.of<EventsProvider>(context).shownEvents;
     return GoogleMap(
       onMapCreated: _onMapCreated,
-      zoomControlsEnabled: true,
+      zoomControlsEnabled: false,
+      compassEnabled: false,
+      myLocationButtonEnabled: false,
+      rotateGesturesEnabled: false,
       initialCameraPosition: const CameraPosition(
         target: _center,
         zoom: 11.0,

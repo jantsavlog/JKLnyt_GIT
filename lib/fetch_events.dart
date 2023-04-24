@@ -7,7 +7,8 @@ import 'event.dart';
 // ----- BACKEND FETCH -----
 // hae tapahtumat palvelimelta
 void getEvents() async {
-  const apiKey = '';
+  const apiKey =
+      'jMM2YpLe3qC9eXOYfgJHrccqJjEmSSuehrLJwIW57Hnyby1cpXihs5D0eGam2Viu';
   const url = 'https://mobdevsrv-1.it.jyu.fi/get';
 
   final res = await http.get(

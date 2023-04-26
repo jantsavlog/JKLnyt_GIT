@@ -32,7 +32,7 @@ class EventTile extends StatelessWidget {
   Future<void> _launchInfo() async {
     String url = event.info['info'];
     Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri)) {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }

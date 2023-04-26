@@ -43,14 +43,14 @@ class MyAppState extends State<MyApp> {
         // yläpalkki.
         appBar: AppBar(
           title: const Text('JKLnyt'),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.lightBlue,
           elevation: 0,
           scrolledUnderElevation: 0,
         ),
         // tässä luodaan sivusta tuleva kategoriavalikko.
         drawer: const NavBar(),
         // stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
-        // -> särjestys on alimmasta päällimmäiseen.
+        // -> järjestys on alimmasta päällimmäiseen.
         body: Stack(
           children: <Widget>[
             const GoogleMapWidget(),

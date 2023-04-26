@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jklnyt/event.dart';
 import 'package:jklnyt/events_provider.dart';
-
 import 'package:provider/provider.dart';
 
 class GoogleMapWidget extends StatefulWidget {
@@ -27,7 +26,10 @@ class GoogleMapWidgetState extends State<GoogleMapWidget> {
     List<Event> events = Provider.of<EventsProvider>(context).shownEvents;
     return GoogleMap(
       onMapCreated: _onMapCreated,
-      zoomControlsEnabled: true,
+      zoomControlsEnabled: false,
+      compassEnabled: false,
+      myLocationButtonEnabled: false,
+      rotateGesturesEnabled: false,
       initialCameraPosition: const CameraPosition(
         target: _center,
         zoom: 11.0,

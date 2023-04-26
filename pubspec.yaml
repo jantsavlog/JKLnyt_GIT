@@ -32,6 +32,5 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/events.json
     - assets/map_style.txt
   uses-material-design: true

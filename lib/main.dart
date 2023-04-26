@@ -50,7 +50,7 @@ class MyAppState extends State<MyApp> {
         // tässä luodaan sivusta tuleva kategoriavalikko.
         drawer: const NavBar(),
         // stack widgetillä voi luoda elementtejä jotka ovat toistensa päällä
-        // -> särjestys on alimmasta päällimmäiseen.
+        // -> järjestys on alimmasta päällimmäiseen.
         body: Stack(
           children: <Widget>[
             const GoogleMapWidget(),

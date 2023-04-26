@@ -21,8 +21,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     // luodaan bottom sheet, alla olevat double arvot ovat alkukoko, minimikoko,
     // maksimikoko, sekä kohdat mihin sheetti snappaa.
     return DraggableScrollableSheet(
-      initialChildSize: 0.04,
-      minChildSize: 0.04,
+      initialChildSize: 0.05,
+      minChildSize: 0.05,
       maxChildSize: 1.0,
       snap: true,
       snapSizes: const [0.5],
@@ -45,16 +45,18 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                 // sheetin avaamiselle.
                 SingleChildScrollView(
                   controller: scrollController,
-                  child: const SizedBox(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.04,
                     width: double.infinity,
-                    child: Icon(Icons.drag_handle_rounded),
+                    child: const Icon(Icons.drag_handle_rounded),
                   ),
                 ),
                 // luodaan kaiken saatavilla olevan tilan täyttävä listview,
                 // joka on scrollattava luettelo widgettejä.
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.01),
                     child: Scrollbar(
                       child: ListView.builder(
                         shrinkWrap: true,
